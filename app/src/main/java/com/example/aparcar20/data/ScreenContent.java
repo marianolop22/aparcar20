@@ -1,23 +1,29 @@
-package com.example.aparcar20;
+package com.example.aparcar20.data;
 
 public class ScreenContent {
 
-    private String image;
+    private int image;
     private String text;
     private boolean showButton;
 
-    public ScreenContent(String image, String text, boolean showButton) {
+    public ScreenContent(int image, String text, boolean showButton) {
         this.image = image;
         this.text = text;
         this.showButton = showButton;
     }
 
+    public ScreenContent () {
+        this.image = 0;
+        this.text = "";
+        this.showButton = false;
+    }
 
-    public String getImage() {
+
+    public int getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
