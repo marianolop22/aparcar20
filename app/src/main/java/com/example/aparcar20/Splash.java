@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aparcar20.data.ScreenContent;
 
@@ -49,15 +47,6 @@ public class Splash extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-//        View rootView = inflater.inflate(R.layout.child_fragment_1_layout, container, false);
-//        Button buttonInFragment1 = rootView.findViewById(R.id.button_1);
-//        buttonInFragment1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getContext(), "button in fragment 1", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
         final View rootView = inflater.inflate(R.layout.fragment_splash, container, false);
 
         text = rootView.findViewById(R.id.text);
@@ -66,7 +55,7 @@ public class Splash extends Fragment {
         image = rootView.findViewById(R.id.image);
         image.setImageResource( content.getImage()  );
 
-        action = rootView.findViewById( R.id.action );
+        action = rootView.findViewById( R.id.begin);
 
         if ( content.isShowButton() ) {
             action.setVisibility ( View.VISIBLE );
@@ -78,7 +67,6 @@ public class Splash extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Log.i ("BUTTON", "click en el boton");
                 Intent intentLogin = new Intent( rootView.getContext() , RegisterActivity.class );
 
 
