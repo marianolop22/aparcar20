@@ -37,4 +37,9 @@ public class MainActivity extends AppCompatActivity {
         active.setupWithViewPager(welcome, true);
 
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

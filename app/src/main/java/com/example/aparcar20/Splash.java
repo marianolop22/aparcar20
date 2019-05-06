@@ -68,11 +68,6 @@ public class Splash extends Fragment {
             public void onClick(View v) {
 
                 Intent intentLogin = new Intent( rootView.getContext() , RegisterActivity.class );
-
-
-                //intentLogin.putExtra("email", email.getText().toString());
-                //intentLogin.putExtra( "password", password.getText().toString());
-
                 startActivity( intentLogin );
 
             }

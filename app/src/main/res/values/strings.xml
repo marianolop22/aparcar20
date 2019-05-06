@@ -10,5 +10,10 @@
     <string name="passwordHint">contraseña</string>
     <string name="rePasswordHint">reingrese la contraseña</string>
     <string name="rePasswordError">Las contraseñas deben ser iguales</string>
+    <string name="activateCodeHint">ingresa el codigo</string>
+    <string name="activate">Activar</string>
+    <string name="activateMessage">Hemos enviado un código de activación a tu cuenta de email, por favor ingresalo a continuación y presiona activar.</string>
+
+
 
 </resources>
