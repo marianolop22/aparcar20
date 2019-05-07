@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         active = findViewById(R.id.active);
 
         active.setupWithViewPager(welcome, true);
-
     }
 
     @Override
