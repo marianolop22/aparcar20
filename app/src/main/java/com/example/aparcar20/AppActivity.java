@@ -1,5 +1,6 @@
 package com.example.aparcar20;
 
+
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class AppActivity extends AppCompatActivity {
+
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -35,7 +37,9 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
+
+        mTextMessage = findViewById(R.id.status);
+
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 

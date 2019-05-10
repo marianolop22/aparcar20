@@ -81,49 +81,55 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void btnRegisterOnClick ( final View v ) {
 
-        if ( !rePassword.getText().toString().equals( password.getText().toString() ))  {
-
-        } else {
-
+        Intent intent = new Intent(v.getContext(), MeliActivity.class);
+        startActivity(intent);
 
 
-            MediaType MEDIA_TYPE = MediaType.parse("application/json");
-            User user = new User(email.getText().toString(), password.getText().toString());
 
-            //okhttp
-            OkHttpClient client = new OkHttpClient();
-            RequestBody body = RequestBody.create(MEDIA_TYPE, user.toJson());
 
-            Request request = new Request.Builder()
-                    .url("http://www.aparcar.com.ar:8080/aparcar/v1/driver/register")
-                    .post(body)
-                    .header("Accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .build();
-
-            dialog.show();
-
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                    dialog.dismiss();
-                }
-
-                @Override
-                public void onResponse(Call call, final Response response) throws IOException {
-                    dialog.dismiss();
-                    if (!response.isSuccessful()) {
-                        throw new IOException("Unexpected code " + response);
-                    } else {
-                        Intent intent = new Intent(v.getContext(), ActivateActivity.class);
-                        startActivity(intent);
-                    }
-                }
-
-            });
-
-        }
+//        if ( !rePassword.getText().toString().equals( password.getText().toString() ))  {
+//
+//        } else {
+//
+//
+//
+//            MediaType MEDIA_TYPE = MediaType.parse("application/json");
+//            User user = new User(email.getText().toString(), password.getText().toString());
+//
+//            //okhttp
+//            OkHttpClient client = new OkHttpClient();
+//            RequestBody body = RequestBody.create(MEDIA_TYPE, user.toJson());
+//
+//            Request request = new Request.Builder()
+//                    .url("http://www.aparcar.com.ar:8080/aparcar/v1/driver/register")
+//                    .post(body)
+//                    .header("Accept", "application/json")
+//                    .header("Content-Type", "application/json")
+//                    .build();
+//
+//            dialog.show();
+//
+//            client.newCall(request).enqueue(new Callback() {
+//                @Override
+//                public void onFailure(Call call, IOException e) {
+//                    e.printStackTrace();
+//                    dialog.dismiss();
+//                }
+//
+//                @Override
+//                public void onResponse(Call call, final Response response) throws IOException {
+//                    dialog.dismiss();
+//                    if (!response.isSuccessful()) {
+//                        throw new IOException("Unexpected code " + response);
+//                    } else {
+//                        Intent intent = new Intent(v.getContext(), ActivateActivity.class);
+//                        startActivity(intent);
+//                    }
+//                }
+//
+//            });
+//
+//        }
     }
 
     @Override
