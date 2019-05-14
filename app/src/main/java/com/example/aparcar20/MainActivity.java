@@ -11,6 +11,8 @@ import com.example.aparcar20.data.ScreenContent;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 public class MainActivity extends AppCompatActivity {
 
     TabLayout active;
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         active = findViewById(R.id.active);
 
         active.setupWithViewPager(welcome, true);
+
+
     }
 
     @Override

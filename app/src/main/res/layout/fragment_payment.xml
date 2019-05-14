@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PaymentFragment">
+
+    <Button
+        android:id="@+id/startPayment"
+        style="@style/AppTheme.roundedButton"
+        android:layout_width="148dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="28dp"
+        android:text="Pagar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/idCreditCard"
+        style="@style/AppTheme.roundedText"
+        android:layout_width="279dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/creditCardHint"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.252"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/cvv"
+        style="@style/AppTheme.roundedText"
+        android:layout_width="121dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/cvvHint"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/idCreditCard"
+        app:layout_constraintTop_toBottomOf="@+id/idCreditCard" />
+
+    <Spinner
+        android:id="@+id/documentType"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="@+id/nameCreditCard"
+        app:layout_constraintTop_toBottomOf="@+id/nameCreditCard" />
+
+    <EditText
+        android:id="@+id/nameCreditCard"
+        style="@style/AppTheme.roundedText"
+        android:layout_width="275dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:hint="@string/nameHint"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/idCreditCard"
+        app:layout_constraintStart_toStartOf="@+id/cvv"
+        app:layout_constraintTop_toBottomOf="@+id/idCreditCard" />
+
+    <EditText
+        android:id="@+id/month"
+        style="@style/AppTheme.roundedText"
+        android:layout_width="49dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/cvv"
+        app:layout_constraintTop_toBottomOf="@+id/idCreditCard" />
+
+    <EditText
+        android:id="@+id/year"
+        style="@style/AppTheme.roundedText"
+        android:layout_width="49dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/month"
+        app:layout_constraintTop_toBottomOf="@+id/idCreditCard" />
+
+    <EditText
+        android:id="@+id/documentNumber"
+        style="@style/AppTheme.roundedText"
+        android:layout_width="216dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/documentHint"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/nameCreditCard"
+        app:layout_constraintStart_toEndOf="@+id/documentType"
+        app:layout_constraintTop_toBottomOf="@+id/nameCreditCard" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="48dp"
+        android:text="estado del pago"
+        app:layout_constraintBottom_toTopOf="@+id/startPayment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

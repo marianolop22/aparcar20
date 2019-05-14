@@ -3,6 +3,9 @@ package com.example.aparcar20;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
@@ -12,6 +15,9 @@ public class AppActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
 
+    private Fragment fragment;
+    private FragmentManager fragmentManager;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -19,16 +25,20 @@ public class AppActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
+                    fragment = new PaymentFragment();
+                    break;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
+                    fragment = new PaymentListFragment();
+                    break;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
+                    fragment = new PaymentFragment();
+                    break;
             }
-            return false;
+
+            final FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.main_container, fragment).commit();
+
+            return true;
         }
     };
 
@@ -38,9 +48,11 @@ public class AppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_app);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
-        mTextMessage = findViewById(R.id.status);
+        fragmentManager = getSupportFragmentManager();
 
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navView.setSelectedItemId( R.id.navigation_home );
+
     }
 
 }

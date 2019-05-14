@@ -81,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void btnRegisterOnClick ( final View v ) {
 
-        Intent intent = new Intent(v.getContext(), MeliActivity.class);
+        Intent intent = new Intent(v.getContext(), AppActivity.class);
         startActivity(intent);
 
 
