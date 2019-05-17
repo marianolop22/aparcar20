@@ -1,9 +1,17 @@
 package com.example.aparcar20;
 
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,9 +19,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.aparcar20.barcode.ScanActivity;
 import com.example.aparcar20.data.CardHolderIdentification;
 import com.example.aparcar20.data.CreditCard;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.Detector;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -45,6 +60,16 @@ public class PaymentFragment extends Fragment {
     private TextView documentNumber;
     private TextView status;
 
+//    private BarcodeDetector barcodeDetector;
+//    private CameraSource cameraSource;
+//    private SurfaceView cameraView;
+//    private Button close;
+    private Button scan;
+
+    private TextView mResultTextView;
+    private int BARCODE_READER_REQUEST_CODE = 1;
+
+
     final ArrayList<String> docs = new ArrayList<>();
     private int positionSelected;
 
@@ -72,6 +97,29 @@ public class PaymentFragment extends Fragment {
 
         docs.add("DNI");
         docs.add("CUIL");
+
+
+//        cameraView = payment.findViewById(R.id.camera_view);
+//        close = payment.findViewById(R.id.closeButton);
+
+        mResultTextView = payment.findViewById(R.id.result_textview);
+        scan = payment.findViewById(R.id.scanButton);
+
+        scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getContext(), ScanActivity.class);
+                startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
+
+
+//                Log.i("LOGCAT", "ABRO");
+//                cameraView.setVisibility( View.VISIBLE );
+//                close.setVisibility(View.VISIBLE);
+//                scan.setVisibility( View.GONE );
+//                startScaning();
+            }
+        });
 
         ArrayAdapter adapter = new ArrayAdapter  (payment.getContext()  ,
                 android.R.layout.simple_spinner_item, docs);
@@ -104,7 +152,25 @@ public class PaymentFragment extends Fragment {
     }
 
 
-    public void startPaymentOnClick ( final View v ) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == BARCODE_READER_REQUEST_CODE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(ScanActivity.BarcodeObject);
+                            //Point p = new Point( barcode.cornerPoints );
+                    mResultTextView.setText( barcode.displayValue );
+                } else
+                    mResultTextView.setText("nada capturado");
+            } else
+                Log.e("LOGCAT", "Error de formato" );
+        } else
+            super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    public void startPaymentOnClick (final View v ) {
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
 
         //okhttp
@@ -138,13 +204,13 @@ public class PaymentFragment extends Fragment {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-                status.setText( "Error " + e.toString() );
+                //status.setText( "Error " + e.toString() );
             }
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 if (!response.isSuccessful()) {
-                    status.setText( "Unexpected code " + response );
+                    //status.setText( "Unexpected code " + response );
                     throw new IOException("Unexpected code " + response);
 
                 } else {
@@ -152,13 +218,12 @@ public class PaymentFragment extends Fragment {
                     Gson gson = new Gson();
                     final JsonObject obj = gson.fromJson( response.body().string(), JsonObject.class );
 
-//                    MeliActivity.this.runOnUiThread( new Runnable() {
-//                        @Override
-//                        public void run() {
-//
-//                            status.setText( "token " + obj.get("id").toString() );
-//                        }});
-
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            status.setText( "token " + obj.get("id").toString() );
+                        }
+                    });
                 }
             }
 
@@ -168,7 +233,83 @@ public class PaymentFragment extends Fragment {
 
 
 
-
+//    public void startScaning () {
+//
+//
+//        Log.i("LOGCAT", "acá entro en la funcion");
+//        // creo el detector qr
+//        barcodeDetector =
+//                new BarcodeDetector.Builder(getContext())
+//                        .setBarcodeFormats(Barcode.QR_CODE)
+//                        .build();
+//
+//        // creo la camara fuente
+//        cameraSource = new CameraSource
+//                .Builder(getContext(), barcodeDetector)
+//                .setRequestedPreviewSize(640, 480)
+//                .build();
+//
+//
+//        cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
+//            @Override
+//            public void surfaceCreated(SurfaceHolder holder) {
+//
+//                // verifico si el usuario dio los permisos para la camara
+//                if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+//                    try {
+//                        cameraSource.start(cameraView.getHolder());
+//                    } catch (IOException ie) {
+//                        Log.i("LOGCAT", ie.getMessage());
+//                    }
+//                } else {
+//                    Toast.makeText(getContext(), "error en la camara", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+//            }
+//
+//            @Override
+//            public void surfaceDestroyed(SurfaceHolder holder) {
+//                cameraSource.stop();
+//            }
+//        });
+//
+//
+//        barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
+//            @Override
+//            public void release() {
+//
+//                close.setVisibility(View.INVISIBLE);
+//                cameraView.setVisibility( View.INVISIBLE );
+//
+//                scan.setVisibility(View.VISIBLE);
+//
+//            }
+//
+//
+//            @Override
+//            public void receiveDetections(Detector.Detections<Barcode> detections) {
+//                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
+//
+//                Log.i("LOGCAT", "ando por acá " + barcodes.size());
+//
+//                if (barcodes.size() != 0) {
+//                    Log.i ( "LOGCAT", "codigo " + barcodes.valueAt(0).displayValue.toString() );
+//                    // hacer algo
+//
+//
+//
+//                    barcodeDetector.release();
+//
+//
+//                }
+//
+//
+//            }
+//        });
+//    }
 
 
 

@@ -3,6 +3,7 @@
     package="com.example.aparcar20">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MeliActivity"></activity>
+        <activity
+            android:name=".barcode.ScanActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_san"
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity android:name=".MeliActivity" />
         <activity
             android:name=".AppActivity"
             android:configChanges="orientation"
